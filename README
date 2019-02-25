@@ -13,3 +13,7 @@ Remove <project> folder and the associated ipython kernel.
 
 venv_ls
 List virtual environments in ~/.virtualenvs.
+
+Install:
+
+source venv_tools.sh from .bashrc

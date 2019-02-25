@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Virtual environments utils (via venv module).
 #
 # Usage:
