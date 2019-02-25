@@ -13,7 +13,7 @@
 # venv_remove <project>
 # Remove <project> folder and the associated ipython kernel.
 # 
-# `venv_ls`
+# venv_ls
 # List virtual environments in ~/.virtualenvs.
 
 python=python3
