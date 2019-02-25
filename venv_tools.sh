@@ -1,19 +1,20 @@
 #!/bin/bash
 
-# Utilities for managing virtual environments via the Python3 venv module.
-# (https://docs.python.org/3/library/venv.html)
+# Virtual environments utils (via venv module).
+#
+# Usage:
 # 
 # venv_activate [project]
-# activate virtual environment <project> from project folders in ~/.virtualenvs
-# (if not present create the folder and install a ipython kernel with the
-# same name). If no name is passed, activate a virtual environment named from
-# the PWD.
-#
+# Activate the virtual environment from folder <project> in ~/.virtualenvs.  
+# Default: get project name from the PWD.  
+# If not present, create the folder <project> and install a ipython kernel
+# with the same name.
+# 
 # venv_remove <project>
-# remove project folder and the associated ipython kernel.
-#
-# venv_ls
-# list of the installed virtual environments.
+# Remove <project> folder and the associated ipython kernel.
+# 
+# `venv_ls`
+# List virtual environments in ~/.virtualenvs.
 
 python=python3
 envs_dir="$HOME/.virtualenvs"
