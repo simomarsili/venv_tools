@@ -2,20 +2,20 @@
 #
 # Usage:
 # 
-# $ venv_activate [project]
-# Activate the virtual environment from folder <project> in $HOME/.virtualenvs.
-# If the folder <project> does not exist, create it and install
-# a ipython kernel with the same name.
+# venv_activate [project]
+# Activate the virtual environment from folder <project> in ~/.venvs.
 # Default: get project name from the PWD.  
+# If not present, create the folder <project> and install a ipython kernel
+# with the same name.
 # 
-# $ venv_remove <project>
+# venv_remove <project>
 # Remove <project> folder and the associated ipython kernel.
 # 
-# $ venv_ls
-# List virtual environments in ~/.virtualenvs.
+# venv_ls
+# List virtual environments in ~/.venvs.
 
 python=python3
-envs_dir="$HOME/.virtualenvs"
+envs_dir="$HOME/.venvs"
 
 
 function venv_activate {
