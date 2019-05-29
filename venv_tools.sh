@@ -48,12 +48,7 @@ function venv_activate {
 
     if [ -z $PYTHON ]; then
 	PYTHON=python3
-	echo "default: ", python3
-    else
-	echo "found: "$PYTHON
     fi
-
-    echo Python: $PYTHON, project: $PROJECT
 
     ve=$ENVS_DIR/$PROJECT
     if [ -d $ve ]; then
