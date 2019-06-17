@@ -6,6 +6,7 @@ $ venv_activate [-p <python executable>] [project]
 Activate the virtual environment from folder <project> in $HOME/.venvs.
 If the folder <project> does not exist, create it and install
 a ipython kernel with the same name.
+Project names are automatically converted to lowercase strings.
 Default: get project name from the PWD.  
 
 $ venv_remove <project>

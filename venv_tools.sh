@@ -6,6 +6,7 @@
 # Activate the virtual environment from folder <project> in $HOME/.venvs.
 # If the folder <project> does not exist, create it and install
 # a ipython kernel with the same name.
+# Project names are automatically converted to lowercase strings.
 # Default: get project name from the PWD.  
 # 
 # $ venv_remove <project>
@@ -65,6 +66,7 @@ function venv_remove {
     else
 	PROJECT=$1
     fi
+    PROJECT=`echo $PROJECT | awk '{print tolower($0)}'`
     rm -r $ENVS_DIR/$PROJECT
     yes | jupyter kernelspec uninstall $PROJECT
     echo "Removed $PROJECT project folder from $ENVS_DIR."
@@ -101,6 +103,7 @@ function __build_project_ve {
 function __venv_create {
     PROJECT=$1
     PYTHON=$2
+    PROJECT=`echo $PROJECT | awk '{print tolower($0)}'`
     ve=$ENVS_DIR/$PROJECT
     if [ -d $ve ]; then
 	echo "$PROJECT already exists. Replace it? (y/n)"
