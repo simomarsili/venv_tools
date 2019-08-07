@@ -18,6 +18,38 @@
 ENVS_DIR="$HOME/.venvs"
 
 
+function lower {
+    # turn to lowercase
+    echo $1 | tr '[:upper:]' '[:lower:]'
+}
+
+function upper {
+    # turn to lowercase
+    echo $1 | tr '[:lower:]' '[:upper:]'
+}
+
+
+function confirm {
+    # return 0/1 if yes/no else ask again
+    while true; do
+	if [[ -z $1 ]]; then
+	    echo "error: confirm <question>"
+	    return 1;
+	fi
+	question="$*"
+	read -p "$question" reply
+	reply=$(lower $reply)
+	if [[ $reply =~ ^(y|yes)$ ]];
+	then
+	    return 0
+	elif [[ $reply =~ ^(n|no)$ ]];
+	then
+	    return 1
+	fi
+    done
+}
+
+
 function venv_activate {
     POSITIONAL=()
     while [[ $# -gt 0 ]]
@@ -96,7 +128,10 @@ function __build_project_ve {
     source $ve/bin/activate
     pip install -U pip
     pip install ipykernel
-    ipython kernel install --user --name=$PROJECT
+    if confirm "Install ipython kernel?"
+    then
+	ipython kernel install --user --name=$PROJECT
+    fi
 }
 
 
@@ -105,20 +140,19 @@ function __venv_create {
     PYTHON=$2
     PROJECT=`echo $PROJECT | awk '{print tolower($0)}'`
     ve=$ENVS_DIR/$PROJECT
-    if [ -d $ve ]; then
-	echo "$PROJECT already exists. Replace it? (y/n)"
-	read answer
-	if [ -z "$answer" ]; then return 1; fi
-	if [ $answer == "y" ]; then
+    if [[ -d $ve ]]; then
+	if confirm "$PROJECT already exists. Replace it?"
+	then
 	    rm -rf $ve
 	    __build_project_ve $PROJECT $PYTHON
-	elif [ $answer == "n" ]; then
-	    source $ve/bin/activate
 	else
-	    echo "Please answer y/n"
+	    source $ve/bin/activate
 	fi
     else
-	__build_project_ve $PROJECT $PYTHON
+	if confirm "Create project $PROJECT?"
+	then
+	    __build_project_ve $PROJECT $PYTHON
+	fi
     fi
 }
 
