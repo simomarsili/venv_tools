@@ -24,7 +24,7 @@ function lower {
 }
 
 function upper {
-    # turn to lowercase
+    # turn to upper
     echo $1 | tr '[:lower:]' '[:upper:]'
 }
 
@@ -33,8 +33,8 @@ function confirm {
     # return 0/1 if yes/no else ask again
     while true; do
 	if [[ -z $1 ]]; then
-	    echo "error: confirm <question>"
-	    return 1;
+	    # confirm if no question
+	    return 0;
 	fi
 	question="$*"
 	read -p "$question" reply
@@ -128,7 +128,7 @@ function __build_project_ve {
     source $ve/bin/activate
     pip install -U pip
     pip install ipykernel
-    if confirm "Install ipython kernel?"
+    if confirm "Install ipython kernel? "
     then
 	ipython kernel install --user --name=$PROJECT
     fi
@@ -138,7 +138,8 @@ function __build_project_ve {
 function __venv_create {
     PROJECT=$1
     PYTHON=$2
-    PROJECT=`echo $PROJECT | awk '{print tolower($0)}'`
+    PROJECT=$(lower $PROJECT)
+    #PROJECT=`echo $PROJECT | awk '{print tolower($0)}'`
     ve=$ENVS_DIR/$PROJECT
     if [[ -d $ve ]]; then
 	if confirm "$PROJECT already exists. Replace it?"
@@ -149,7 +150,7 @@ function __venv_create {
 	    source $ve/bin/activate
 	fi
     else
-	if confirm "Create project $PROJECT?"
+	if confirm "Create project $PROJECT? "
 	then
 	    __build_project_ve $PROJECT $PYTHON
 	fi
